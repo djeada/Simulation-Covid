@@ -21,6 +21,12 @@ Person::Person(bool cooperetivness, stages_of_disease x){
     }
 }
 
+double Person::get_distance(Person other_person){
+    double dx = other_person.getLocation().getX() - getLocation().getX();
+    double dy = other_person.getLocation().getY() - getLocation().getY();
+    return sqrt((dx*dx)+(dy*dy));
+}
+
 //if you are vulnerable it infects you
 bool Person::infect(){
     if(status == VULNERABLE) {
@@ -45,9 +51,6 @@ bool Person::will_move(){
 
 bool Person::try_infect(Person other_person){
     if(other_person.status == INFECTED) {
-        return false;
-    }
-    if(current_location->get_distance(other_person.getLocation()) > INFECTION_PROXIMITY) {
         return false;
     }
     if(try_event(INFECTION_PROBABILITY)) {

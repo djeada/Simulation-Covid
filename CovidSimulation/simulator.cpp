@@ -1,10 +1,19 @@
+#include <QDebug>
+#include <math.h>
+#include <assert.h>
+#include <stdlib.h>
+#include <cstring>
+#include <QRandomGenerator>
+#include <random>
+
 #include "simulator.h"
 #include "person.h"
 #include "location.h"
 
 bool saturated = false;
 
-int randomInRange(int start, int end){
+template<typename T>
+T randomInRange(T start, T end){
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<> dist(start,end);
@@ -12,7 +21,7 @@ int randomInRange(int start, int end){
 }
 
 int headOrTail(){
-    if(randomInRange(-10001, 10000) >= 1){
+    if(randomInRange<int>(-10001, 10000) >= 1){
         return 1;
     }
     return -1;

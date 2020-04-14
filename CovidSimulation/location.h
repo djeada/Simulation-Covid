@@ -1,31 +1,34 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#define SCENE_WIDTH 1200
-#define SCENE_HEIGHT 800
-#define CLOSE_ENOUGH 1 //locations less than this distance are in danger
+#include <QPointF>
+
+#define SCENE_WIDTH 1000
+#define SCENE_HEIGHT 1000
+#define VELOCITY_RANGE 2
 
 class Location {
     private:
-        int x, y;
-        int vx, vy;
+        QPointF position;
+        QPointF velocity;
     public:
         Location();
-        Location(int nx, int ny);
+        Location(float a, float b);
 
-        double get_distance(Location other_location);
         bool move_toward(Location destination, double speed);
-        bool at_location(Location destination);
 
-        int getX();
-        int getY();
-        void setX(int a);
-        void setY(int b);
+        QPointF getPosition();
+        QPointF getVelocity();
 
-        int getVX();
-        int getVY();
-        void setVX(int a);
-        void setVY(int b);
+        float getX();
+        float getY();
+        void setX(float a);
+        void setY(float b);
+
+        float getVX();
+        float getVY();
+        void setVX(float a);
+        void setVY(float b);
         void toggleVX();
         void toggleVY();
 };

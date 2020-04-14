@@ -6,6 +6,10 @@ statistics::statistics(){
     num_dead = 0;
 }
 
+void statistics::set_saturation(bool flag){
+   saturation = flag;
+}
+
 void statistics::increaseNum_infected(){
     num_infected++;
 }
@@ -29,3 +33,8 @@ int statistics::getNum_dead(){
 int statistics::getNum_vulnerable(){
     return num_vulnerable;
 }
+
+bool statistics::isTheSystemSaturated() {
+   return saturation;
+}
+

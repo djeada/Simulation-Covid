@@ -21,6 +21,7 @@ class Person {
         Person();
         Person(bool cooperetivness, stages_of_disease x);
         void progress_diesease();
+        double get_distance(Person other_person);
         bool infect();
         bool try_infect(Person other_person);
         bool is_alive();

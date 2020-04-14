@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "myrect.h"
+#include "gui.h"
+#include "simulation.h"
 #include "initial_conditions.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
@@ -7,6 +9,7 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QTimer>
 
 class QFileDialogTester : public QWidget
 {
@@ -30,11 +33,14 @@ public:
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //QFileDialogTester test;
-    //test.openFile();
+    // QFileDialogTester test;
+    // test.openFile();
 
-    QString str = "C:/Users/patri/OneDrive/Dokumente/CovidSimulation/data/4.14.2020.2020";
-    initial_conditions my(str, "Germany");
+    gui* mygui = new gui();
+    mygui->start();
+
+    /*
+    initial_conditions my("Germany");
     //create a scene
     QGraphicsScene *scene = new  QGraphicsScene();
 
@@ -56,6 +62,7 @@ int main(int argc, char *argv[])
     }
 
     //create a view to visualize the scene
+    QGraphicsScene *scene = new  QGraphicsScene();
     QGraphicsView * view = new QGraphicsView(scene);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -65,9 +72,12 @@ int main(int argc, char *argv[])
     view->setFixedSize(1200,800);
     scene->setSceneRect(0,0,1200,800);
     scene->setBackgroundBrush(QBrush(Qt::lightGray, Qt::CrossPattern));
-
+    */
 
     return a.exec();
 }
+
+
+
 
 

@@ -2,13 +2,6 @@
 #define SIMULATOR_H
 
 #include <bits/stdc++.h>
-#include <QDebug>
-#include <math.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <cstring>
-#include <QRandomGenerator>
-#include <random>
 
 //how long will healthy people live
 #define INFINITY INT_MAX
@@ -43,8 +36,9 @@ extern bool saturated;
 //false otherwise
 bool try_event(double probability);
 
-//returns a random integer picked from a range <start, end>
-int randomInRange(int start, int end);
+//returns a random number (of T type) picked from a range <start, end>
+template<typename T>
+T randomInRange(T start, T end);
 
 //returns -1 or 1, similiar to dice roll
 int headOrTail();

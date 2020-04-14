@@ -1,11 +1,47 @@
 #include "initial_conditions.h"
 
 QVector<int> findLocation(QString sample, const char &findIt);
+QString substring( QString str, int start, int end);
+bool contains(QString a, QString b);
 
-initial_conditions::initial_conditions(QString str, QString selected_country)
-{
+initial_conditions::initial_conditions(QString selected_country) {
     country = selected_country;
 
+    QString str = "C:/Users/patri/OneDrive/Dokumente/CovidSimulation/data/population.2020";
+    setPopulation(str);
+
+    str = "C:/Users/patri/OneDrive/Dokumente/CovidSimulation/data/4.14.2020.2020";
+    setCasesAndDeaths(str);
+}
+
+void initial_conditions::setPopulation(QString str){
+    //open the file
+    QFile file(str);
+    try{
+        file.open(QIODevice::ReadOnly);
+    }
+    catch (...){
+        QMessageBox Msgbox;
+        Msgbox.setText(file.errorString());
+        Msgbox.exec();
+    }
+
+    QTextStream s1(&file);
+    QStringList population;
+    while (!s1.atEnd()){
+      QString s=s1.readLine(); // reads line from file
+      if(contains(s, country) && contains(s,"Total")){
+          char delimeter = ',';
+          QVector<int> results = findLocation(s,delimeter);
+          population.append(substring(s, results[results.size()-3]+1, results[results.size()-2]-1));// appends first column to list, ',' is separator
+      }
+    }
+    file.close();
+    this->population = population[population.size()-1].toInt();
+}
+
+void initial_conditions::setCasesAndDeaths(QString str){
+    //open the file
     QFile file(str);
     try{
         file.open(QIODevice::ReadOnly);
@@ -21,15 +57,28 @@ initial_conditions::initial_conditions(QString str, QString selected_country)
 
     while (!s1.atEnd()){
       QString s=s1.readLine(); // reads line from file
-      char delimeter = ',';
-      QVector<int> results = findLocation(s,delimeter);
-      deaths.append(s.mid(results[3], results[4]));// appends first column to list, ',' is separator
-      infected.append(s.mid(results[2], results[3]));
+      if(contains(s, country)){
+          char delimeter = ',';
+          QVector<int> results = findLocation(s,delimeter);
+          deaths.append(substring(s, results[4]+1, results[5]-1));// appends first column to list, ',' is separator
+          infected.append(substring(s, results[3]+1, results[4]-1));
+      }
     }
     file.close();
+    num_cases  = infected[1].toInt();
+    num_deaths = deaths[1].toInt();
+}
 
-    qDebug() << deaths;
+bool contains(QString a, QString b){
+    return  a.toStdString().find(b.toStdString()) != std::string::npos;
+}
 
+QString substring( QString str, int start, int end){
+    QString result = "";
+    for(int i = start; i <= end; i++){
+        result += str[i];
+    }
+    return result;
 }
 
 QVector<int> findLocation(QString sample, const char &findIt){

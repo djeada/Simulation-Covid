@@ -1,24 +1,25 @@
 #include "location.h"
-#include <math.h>
 #include "simulator.h"
+
+#include <math.h>
 #include <stdlib.h>
 
 Location::Location(){
-    x = randomInRange(0, SCENE_WIDTH);
-    y = randomInRange(0, SCENE_HEIGHT);
-    vx = headOrTail();
-    vy = headOrTail();
+    position.setX(randomInRange<int>(0, SCENE_WIDTH));
+    position.setY(randomInRange<int>(0, SCENE_HEIGHT));
+    velocity.setX(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
+    velocity.setY(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
 }
 
-Location::Location(int nx, int ny){
-    x = nx;
-    y = ny;
-    vx = headOrTail();
-    vy = headOrTail();
+Location::Location(float a, float b){
+    position.setX(a);
+    position.setY(b);
+    velocity.setX(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
+    velocity.setY(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
 }
 
 bool Location::move_toward(Location destination, double howfar){
-    double dx = destination.x - x;
+    /*double dx = destination.x - x;
     double dy = destination.y - y;
     double theta = atan2(dy,dx);
 
@@ -33,56 +34,54 @@ bool Location::move_toward(Location destination, double howfar){
         x += howfar*cos(theta);
         y += howfar*sin(theta);
         return false;
-    }
+    }*/
+    return true;
 }
 
-double Location::get_distance(Location other_location){
-    double dx = other_location.x - x;
-    double dy = other_location.y - y;
-    return sqrt((dx*dx)+(dy*dy));
+QPointF Location::getPosition(){
+    return position;
 }
 
-bool Location::at_location(Location destination){
-    return (get_distance(destination) < CLOSE_ENOUGH);
+QPointF  Location::getVelocity(){
+    return velocity;
 }
 
-int Location::getX() {
-    return x;
+float Location::getX() {
+    return position.x();
 }
 
-int Location::getY() {
-    return y;
+float Location::getY() {
+    return position.y();
 }
 
-void Location::setX(int a) {
-    x = a;
+void Location::setX(float a) {
+    position.setX(a);
 }
 
-void Location::setY(int b) {
-    y = b;
+void Location::setY(float b) {
+    position.setY(b);
 }
 
-int Location::getVX() {
-    return vx;
+float Location::getVX() {
+    return velocity.x();
 }
 
-int Location::getVY() {
-    return vy;
+float Location::getVY() {
+    return velocity.y();
 }
 
-void Location::setVX(int a) {
-    vx = a;
+void Location::setVX(float a) {
+    velocity.setX(a);
 }
 
-void Location::setVY(int b) {
-    vy = b;
+void Location::setVY(float b) {
+    velocity.setY(b);
 }
 
 void Location::toggleVX()  {
-    vx = -1*vx;
+    velocity.setX(velocity.x()*-1);
 }
 
 void Location::toggleVY()  {
-    vy = -1*vy;
+    velocity.setY(velocity.y()*-1);
 }
-
