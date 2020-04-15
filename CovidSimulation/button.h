@@ -1,6 +1,9 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+/* This class helps to customize buttons for the GUI.
+*/
+
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 

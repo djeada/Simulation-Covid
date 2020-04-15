@@ -1,41 +1,18 @@
 #include "location.h"
-#include "simulator.h"
-
-#include <math.h>
-#include <stdlib.h>
+#include "simulation.h"
 
 Location::Location(){
-    position.setX(randomInRange<int>(0, SCENE_WIDTH));
-    position.setY(randomInRange<int>(0, SCENE_HEIGHT));
-    velocity.setX(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
-    velocity.setY(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
+    position.setX(randomInRange(0, SCENE_WIDTH));
+    position.setY(randomInRange(0, SCENE_HEIGHT));
+    velocity.setX(randomInRange(-VELOCITY_RANGE*1000, VELOCITY_RANGE*1000)/1000.0);
+    velocity.setY(randomInRange(-VELOCITY_RANGE*1000, VELOCITY_RANGE*1000)/1000.0);
 }
 
 Location::Location(float a, float b){
     position.setX(a);
     position.setY(b);
-    velocity.setX(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
-    velocity.setY(randomInRange<int>(-VELOCITY_RANGE, VELOCITY_RANGE));
-}
-
-bool Location::move_toward(Location destination, double howfar){
-    /*double dx = destination.x - x;
-    double dy = destination.y - y;
-    double theta = atan2(dy,dx);
-
-    double distance = sqrt((dx*dx)+(dy*dy));
-
-    if(distance < howfar){
-        x = destination.x;
-        y = destination.y;
-        return true;
-    }
-    else {
-        x += howfar*cos(theta);
-        y += howfar*sin(theta);
-        return false;
-    }*/
-    return true;
+    velocity.setX(randomInRange(-VELOCITY_RANGE*1000, VELOCITY_RANGE*1000)/1000);
+    velocity.setY(randomInRange(-VELOCITY_RANGE*1000, VELOCITY_RANGE*1000)/1000);
 }
 
 QPointF Location::getPosition(){
@@ -46,36 +23,40 @@ QPointF  Location::getVelocity(){
     return velocity;
 }
 
-float Location::getX() {
+float Location::getCorX() {
     return position.x();
 }
 
-float Location::getY() {
+float Location::getCorY() {
     return position.y();
 }
 
-void Location::setX(float a) {
-    position.setX(a);
+void Location::setCorX(float a) {
+    QPointF temp(a, getCorY());
+    position = temp;
 }
 
-void Location::setY(float b) {
-    position.setY(b);
+void Location::setCorY(float b) {
+    QPointF temp(getCorX(), b);
+    position = temp;
 }
 
-float Location::getVX() {
+float Location::getCorVX() {
     return velocity.x();
 }
 
-float Location::getVY() {
+float Location::getCorVY() {
     return velocity.y();
 }
 
-void Location::setVX(float a) {
-    velocity.setX(a);
+void Location::setCorVX(float a) {
+    QPointF temp(a, getCorVY());
+    velocity = temp;
 }
 
-void Location::setVY(float b) {
-    velocity.setY(b);
+void Location::setCorVY(float b) {
+    QPointF temp(getCorVX(), b);
+    velocity = temp;
 }
 
 void Location::toggleVX()  {
@@ -84,4 +65,9 @@ void Location::toggleVX()  {
 
 void Location::toggleVY()  {
     velocity.setY(velocity.y()*-1);
+}
+
+void Location::randomizeVelocity(){
+    velocity.setX(randomInRange(-VELOCITY_RANGE*1000, VELOCITY_RANGE*1000)/1000.0);
+    velocity.setY(randomInRange(-VELOCITY_RANGE*1000, VELOCITY_RANGE*1000)/1000.0);
 }

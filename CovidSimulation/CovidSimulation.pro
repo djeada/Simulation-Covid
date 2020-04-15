@@ -16,30 +16,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    board.cpp \
     button.cpp \
     gui.cpp \
     initial_conditions.cpp \
     location.cpp \
     main.cpp \
     mainwindow.cpp \
-    myrect.cpp \
     person.cpp \
     simulation.cpp \
-    simulator.cpp \
     statistics.cpp
 
 HEADERS += \
-    board.h \
     button.h \
     gui.h \
     initial_conditions.h \
     location.h \
     mainwindow.h \
-    myrect.h \
     person.h \
     simulation.h \
-    simulator.h \
     statistics.h
 
 FORMS += \

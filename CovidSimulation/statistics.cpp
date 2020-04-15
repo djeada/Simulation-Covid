@@ -1,40 +1,57 @@
 #include "statistics.h"
 
-statistics::statistics(){
+Statistics::Statistics(){
     num_vulnerable = 0;
     num_infected = 0;
     num_dead = 0;
 }
+Statistics::Statistics(int infected,int dead, int vulnerable){
+    num_vulnerable = vulnerable;
+    num_infected = infected;
+    num_dead = dead;
+}
 
-void statistics::set_saturation(bool flag){
+void Statistics::set_saturation(bool flag){
    saturation = flag;
 }
 
-void statistics::increaseNum_infected(){
+void Statistics::increaseNum_infected(){
     num_infected++;
 }
 
-void statistics::increaseNum_dead(){
+void Statistics::increaseNum_dead(){
     num_dead++;
 }
 
-void statistics::increaseNum_vulnerable(){
+void Statistics::increaseNum_vulnerable(){
     num_vulnerable++;
 }
 
-int statistics::getNum_infected(){
+void Statistics::decreaseNum_infected(){
+    num_infected--;
+}
+
+void Statistics::decreaseNum_dead(){
+    num_dead--;
+}
+
+void Statistics::decreaseNum_vulnerable(){
+    num_vulnerable--;
+}
+
+int Statistics::getNum_infected(){
     return num_infected;
 }
 
-int statistics::getNum_dead(){
+int Statistics::getNum_dead(){
     return num_dead;
 }
 
-int statistics::getNum_vulnerable(){
+int Statistics::getNum_vulnerable(){
     return num_vulnerable;
 }
 
-bool statistics::isTheSystemSaturated() {
+bool Statistics::isTheSystemSaturated() {
    return saturation;
 }
 

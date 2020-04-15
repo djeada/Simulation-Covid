@@ -3,9 +3,15 @@
 
 #include <QPointF>
 
-#define SCENE_WIDTH 1000
-#define SCENE_HEIGHT 1000
-#define VELOCITY_RANGE 2
+/* This class is a helper class for Person position.
+  Each person has two coordinates in our simulation.
+  Since we are constantly checking and setting them,
+  it was clearer to make a separate class.
+*/
+
+#define SCENE_WIDTH 1200
+#define SCENE_HEIGHT 800
+#define VELOCITY_RANGE 2.0f
 
 class Location {
     private:
@@ -15,22 +21,22 @@ class Location {
         Location();
         Location(float a, float b);
 
-        bool move_toward(Location destination, double speed);
-
         QPointF getPosition();
         QPointF getVelocity();
 
-        float getX();
-        float getY();
-        void setX(float a);
-        void setY(float b);
+        float getCorX();
+        float getCorY();
+        void setCorX(float a);
+        void setCorY(float b);
 
-        float getVX();
-        float getVY();
-        void setVX(float a);
-        void setVY(float b);
+        float getCorVX();
+        float getCorVY();
+        void setCorVX(float a);
+        void setCorVY(float b);
         void toggleVX();
         void toggleVY();
+
+        void randomizeVelocity();
 };
 
 #endif // LOCATION_H

@@ -1,10 +1,15 @@
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
+
 #include "initial_conditions.h"
+#include "simulation.h"
 
 QVector<int> findLocation(QString sample, const char &findIt);
 QString substring( QString str, int start, int end);
 bool contains(QString a, QString b);
 
-initial_conditions::initial_conditions(QString selected_country) {
+Initial_conditions::Initial_conditions(QString selected_country) {
     country = selected_country;
 
     QString str = "C:/Users/patri/OneDrive/Dokumente/CovidSimulation/data/population.2020";
@@ -14,7 +19,7 @@ initial_conditions::initial_conditions(QString selected_country) {
     setCasesAndDeaths(str);
 }
 
-void initial_conditions::setPopulation(QString str){
+void Initial_conditions::setPopulation(QString str){
     //open the file
     QFile file(str);
     try{
@@ -27,20 +32,21 @@ void initial_conditions::setPopulation(QString str){
     }
 
     QTextStream s1(&file);
-    QStringList population;
+    QStringList lpopulation;
     while (!s1.atEnd()){
       QString s=s1.readLine(); // reads line from file
       if(contains(s, country) && contains(s,"Total")){
           char delimeter = ',';
           QVector<int> results = findLocation(s,delimeter);
-          population.append(substring(s, results[results.size()-3]+1, results[results.size()-2]-1));// appends first column to list, ',' is separator
+          lpopulation.append(substring(s, results[results.size()-3]+2, results[results.size()-2]-2));// appends first column to list, ',' is separator
       }
     }
     file.close();
-    this->population = population[population.size()-1].toInt();
+
+    population = lpopulation[1].toInt();
 }
 
-void initial_conditions::setCasesAndDeaths(QString str){
+void Initial_conditions::setCasesAndDeaths(QString str){
     //open the file
     QFile file(str);
     try{
@@ -69,6 +75,18 @@ void initial_conditions::setCasesAndDeaths(QString str){
     num_deaths = deaths[1].toInt();
 }
 
+int Initial_conditions::getNumCases(){
+    return num_cases;
+}
+
+int Initial_conditions::getNumDeaths(){
+    return num_deaths;
+}
+
+int Initial_conditions::getPopulation(){
+    return population;
+}
+
 bool contains(QString a, QString b){
     return  a.toStdString().find(b.toStdString()) != std::string::npos;
 }
@@ -88,3 +106,27 @@ QVector<int> findLocation(QString sample, const char &findIt){
             characterLocations.append(i);
     return characterLocations;
 }
+
+QVector<Person> populate(Initial_conditions my_initial_conditions){
+    QVector<Person> population;
+    assert (my_initial_conditions.getPopulation() > 0);
+    int num_of_infected = (int)my_initial_conditions.getNumCases()*NUM_PEOPLE/my_initial_conditions.getPopulation();
+    int num_of_dead = (int)my_initial_conditions.getNumDeaths()*NUM_PEOPLE/my_initial_conditions.getPopulation();
+    int num_of_vulnerable = NUM_PEOPLE - num_of_dead - num_of_infected;
+    assert (num_of_vulnerable >= 0 && num_of_vulnerable  <= NUM_PEOPLE);
+    bool chance_of_cooperation;
+    for(int i = 0; i < num_of_infected; ++i){
+        chance_of_cooperation = didItHappen(PERCENT_OF_COOPERATIVE);
+        population.append({chance_of_cooperation,INFECTED});
+    }
+    for(int i = 0; i < num_of_dead; ++i){
+        chance_of_cooperation = didItHappen(PERCENT_OF_COOPERATIVE);
+        population.append({chance_of_cooperation,DEAD});
+    }
+    for(int i = 0; i < num_of_vulnerable; ++i){
+        chance_of_cooperation = didItHappen(PERCENT_OF_COOPERATIVE);
+        population.append({chance_of_cooperation,HEALTHY});
+    }
+    return population;
+}
+
