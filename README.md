@@ -1,7 +1,7 @@
 # SimulationCovid
 This is my attempt to model and simulate the spread of Covid-19.
 
-![alt text](https://github.com/djeada/SimulationCovid/tree/master/CovidSimulation/img)
+![alt text](https://github.com/djeada/SimulationCovid/blob/master/CovidSimulation/img/Capture.PNG)
 
 <h1>What does the simulation represent?</h1>
 Squares in the simulation represent individual people.
