@@ -20,6 +20,7 @@ You can choose the country in the <i>main</i> file.
 <li>Number of people that passed away because of Covid-19 in your country.</li>
 <li>Total population of your country</li>
 
+</br>
 Initial conditions are taken from two files:
 
 <i>4.14.2020.2020</i>
@@ -36,6 +37,7 @@ Each person has a stage of disease associated with them.
 <li>infected</li>
 <li>dead</li>
 
+</br>
 Each person has a life counter associated with them.
 We assume that healthy people never die.
 We assume that progress of the disease will take the same number of iterations for everyone.
