@@ -10,6 +10,7 @@ Their colors represent their health.
 <li>Red for infected.</li>
 <li>Black for dead.</li>
 
+</br>
 The numbers are scaled, since showing millions of squares is not possible. 
 Their ratios however are initially the same, as in the country of your choice.
 You can choose the country in the <i>main</i> file.
