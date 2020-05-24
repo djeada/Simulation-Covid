@@ -64,7 +64,7 @@ You can set your countries health system capacity in the <i>simulation</i> file.
 
 <h1>Cooperativeness of the people</h1>
 Not everyone stays in quarantine.
-Every person has a Boolean field called cooperativeness associated with them.
+Every person has boolean field called cooperativeness associated with them.
 
 Cooperative people rarely live their homes and don't go far.
 
