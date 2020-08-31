@@ -62,7 +62,7 @@ There are contradictory theories on how the virus spreads, so we decided that th
 of getting infected when meeting infected person, but not hundred percent.
 You can set your countries health system capacity in the <i>simulation</i> file.
 
-<h1>Cooperativeness of the people</h1>
+<h1>People's cooperativeness</h1>
 Not everyone stays in quarantine.
 Every person has boolean field called cooperativeness associated with them.
 
