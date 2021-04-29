@@ -45,8 +45,7 @@ If the infected person's life counter approaches zero, there are two options:
 1. They have recovered from the illness and are now in a stable state.
 2. They died as a result of the illness, and their status has been changed to that of a deceased person.
 
-
-How is this decided?
+<h3r>How is this decided?</h3>
 There is 80% of chance that they will survive. 
 Source: https://www.worldometers.info/coronavirus/
 
