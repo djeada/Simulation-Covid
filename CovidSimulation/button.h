@@ -2,7 +2,7 @@
 #define BUTTON_H
 
 /* This class helps to customize buttons for the GUI.
-*/
+ */
 
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
@@ -11,22 +11,23 @@
 #define BUTTON_HEIGHT 100
 #define FONT_SIZE 35
 
-class Button:public QObject, public QGraphicsRectItem{
-    Q_OBJECT
+class Button : public QObject, public QGraphicsRectItem {
+  Q_OBJECT
 public:
-    // constructors
-    Button(QString name, QGraphicsItem* parent=NULL);
+  // constructors
+  Button(QString name, QGraphicsItem *parent = NULL);
 
-    // public methods (events)
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+  // public methods (events)
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 signals:
-    void clicked();
+  void clicked();
+
 private:
-    QGraphicsTextItem* text;
-    void setText(QString name);
-    void drawButton();
+  QGraphicsTextItem *text;
+  void setText(QString name);
+  void drawButton();
 };
 
 #endif // BUTTON_H

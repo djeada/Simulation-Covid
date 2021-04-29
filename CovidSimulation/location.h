@@ -14,29 +14,30 @@
 #define VELOCITY_RANGE 2.0f
 
 class Location {
-    private:
-        QPointF position;
-        QPointF velocity;
-    public:
-        Location();
-        Location(float a, float b);
+private:
+  QPointF position;
+  QPointF velocity;
 
-        QPointF getPosition();
-        QPointF getVelocity();
+public:
+  Location();
+  Location(float a, float b);
 
-        float getCorX();
-        float getCorY();
-        void setCorX(float a);
-        void setCorY(float b);
+  QPointF getPosition();
+  QPointF getVelocity();
 
-        float getCorVX();
-        float getCorVY();
-        void setCorVX(float a);
-        void setCorVY(float b);
-        void toggleVX();
-        void toggleVY();
+  float getCorX();
+  float getCorY();
+  void setCorX(float a);
+  void setCorY(float b);
 
-        void randomizeVelocity();
+  float getCorVX();
+  float getCorVY();
+  void setCorVX(float a);
+  void setCorVY(float b);
+  void toggleVX();
+  void toggleVY();
+
+  void randomizeVelocity();
 };
 
 #endif // LOCATION_H
